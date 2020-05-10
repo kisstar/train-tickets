@@ -1,13 +1,6 @@
 import React from 'react';
 
-class Foo extends React.Component {
-  shouldComponentUpdate(nextProps, _nextState) {
-    if (nextProps.name === this.props.name) {
-      return false;
-    }
-    return true;
-  }
-
+class Foo extends React.PureComponent {
   render() {
     console.log('Foo render');
     return null;
