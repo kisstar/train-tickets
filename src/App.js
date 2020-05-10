@@ -3,22 +3,32 @@ import React from 'react';
 class Foo extends React.PureComponent {
   render() {
     console.log('Foo render');
-    return null;
+    return <div>{this.props.person.age}</div>;
   }
 }
 
 class App extends React.Component {
   state = {
     count: 0,
+    person: {
+      age: 1,
+    },
   };
 
   render() {
-    const { count } = this.state;
+    const { person } = this.state;
 
     return (
       <>
-        <button onClick={() => this.setState({ count: count + 1 })}>Add</button>
-        <Foo name='Mike' />
+        <button
+          onClick={() => {
+            person.age++;
+            this.setState({ person });
+          }}
+        >
+          Add
+        </button>
+        <Foo person={person} />
       </>
     );
   }
