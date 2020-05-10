@@ -12,6 +12,10 @@ function App() {
       height: document.documentElement.clientHeight,
     });
 
+  const onClick = () => {
+    console.log('click');
+  };
+
   useEffect(() => {
     document.title = count;
   });
@@ -25,11 +29,33 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    console.log(`count: ${count}`);
+  }, [count]); // 只在 count 发生改变时执行
+
+  useEffect(() => {
+    document.querySelector('#size').addEventListener('click', onClick, false);
+
+    return () => {
+      document
+        .querySelector('#size')
+        .removeEventListener('click', onClick, false);
+    };
+  });
+
   return (
-    <button onClick={() => setCount(count + 1)}>
-      Click {count}
-      Size {size.width}x{size.height}
-    </button>
+    <>
+      <button onClick={() => setCount(count + 1)}>Click {count}</button>
+      {count & 2 ? (
+        <span id='size'>
+          Size {size.width}x{size.height}
+        </span>
+      ) : (
+        <p id='size'>
+          Size {size.width}x{size.height}
+        </p>
+      )}
+    </>
   );
 }
 
