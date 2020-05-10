@@ -1,40 +1,32 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 
-const LazyAbout = lazy(() => import(/* webpackChunkName: "about" */ './About'));
-
-class ErrorBoundary extends React.Component {
-  state = {
-    hasError: false,
-  };
-
-  static getDerivedStateFromError(_error) {
-    // 更新 state 使下一次渲染能够显示降级后的 UI
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    // 可以在此将错误日志上报给服务器
-    console.log(error, errorInfo);
+class Foo extends React.Component {
+  shouldComponentUpdate(nextProps, _nextState) {
+    if (nextProps.name === this.props.name) {
+      return false;
+    }
+    return true;
   }
 
   render() {
-    if (this.state.hasError) {
-      // 自定义降级后的 UI 并渲染
-      return <div>Error</div>;
-    }
-
-    return this.props.children;
+    console.log('Foo render');
+    return null;
   }
 }
 
 class App extends React.Component {
+  state = {
+    count: 0,
+  };
+
   render() {
+    const { count } = this.state;
+
     return (
-      <ErrorBoundary>
-        <Suspense fallback={<div>Loading</div>}>
-          <LazyAbout />
-        </Suspense>
-      </ErrorBoundary>
+      <>
+        <button onClick={() => this.setState({ count: count + 1 })}>Add</button>
+        <Foo name='Mike' />
+      </>
     );
   }
 }
