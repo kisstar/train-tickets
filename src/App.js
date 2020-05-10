@@ -1,41 +1,13 @@
-import React, { createContext } from 'react';
+import React, { lazy, Suspense } from 'react';
 
-const BatteryContext = createContext();
-
-class Leaf extends React.Component {
-  static contextType = BatteryContext;
-
-  render() {
-    const battery = this.context;
-
-    return <h1>Battery: {battery}</h1>;
-  }
-}
-
-class Middle extends React.Component {
-  render() {
-    return <Leaf />;
-  }
-}
+const LazyAbout = lazy(() => import(/* webpackChunkName: "about" */ './About'));
 
 class App extends React.Component {
-  state = {
-    battery: 60,
-  };
-
   render() {
-    const { battery } = this.state;
-
     return (
-      <BatteryContext.Provider value={battery}>
-        <button
-          type='button'
-          onClick={() => this.setState({ battery: battery - 1 })}
-        >
-          Press
-        </button>
-        <Middle />
-      </BatteryContext.Provider>
+      <Suspense fallback={<div>Loading</div>}>
+        <LazyAbout />
+      </Suspense>
     );
   }
 }
