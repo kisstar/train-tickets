@@ -1,49 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-class App extends React.Component {
-  state = {
-    count: 0,
-    size: {
+function App() {
+  const [count, setCount] = useState(0);
+  const [size, setSize] = useState({
+    width: document.documentElement.clientWidth,
+    height: document.documentElement.clientHeight,
+  });
+  const onSize = () =>
+    setSize({
       width: document.documentElement.clientWidth,
       height: document.documentElement.clientHeight,
-    },
-  };
-
-  onSize = () => {
-    this.setState({
-      size: {
-        width: document.documentElement.clientWidth,
-        height: document.documentElement.clientHeight,
-      },
     });
-  };
 
-  componentDidMount() {
-    document.title = this.state.count;
+  useEffect(() => {
+    document.title = count;
+  });
 
-    window.addEventListener('resize', this.onSize, false);
-  }
+  useEffect(() => {
+    window.addEventListener('resize', onSize, false);
 
-  componentDidUpdate() {
-    document.title = this.state.count;
-  }
+    return () => {
+      window.removeEventListener('resize', onSize, false);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.onSize, false);
-  }
-
-  render() {
-    const { count, size } = this.state;
-
-    return (
-      <>
-        <button onClick={() => this.setState({ count: count + 1 })}>
-          Click {count}
-          Size {size.width}x{size.height}
-        </button>
-      </>
-    );
-  }
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Click {count}
+      Size {size.width}x{size.height}
+    </button>
+  );
 }
 
 export default App;
