@@ -63,6 +63,50 @@ function Counter() {
 
 多次点击按钮，初始化的的提示消息只会出现一次。
 
+## useEffect
+
+在 React 组件中执行数据获取、订阅或者手动修改 DOM 的操作，我们统一把这些称为“副作用”。
+
+对应的 `useEffect` 就是一个 Effect Hook，给函数组件增加了操作副作用的能力。它跟 `class` 组件中的 `componentDidMount`、`componentDidUpdate` 和 `componentWillUnmount` 具有相同的用途。
+
+当你调用 `useEffect` 时，就是在告诉 React 在完成对 DOM 的更改后运行你的“副作用”函数。
+
+默认情况下，React 会在每次渲染后调用副作用函数 —— 包括第一次渲染的时候。
+
+```javascript
+function Counter() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    setInterval(() => setCount(count + 1), 1000);
+  }, [count]);
+
+  return <p>{count}</p>;
+}
+```
+
+示例代码看起来还不错。然而，事实上这会导致开启越来越多的定时器，而其中大部分是毫无意义得，甚至可能会导致错误。
+
+由于，我们把 `count` 添加作为依赖项，所以每当 `count` 的值改变时该 Hook 就会重新执行，也就会重新开启一个定时器。
+
+解决这个问题的方法，就是在每次执行完成后清除上一次的定时器。刚好，在副作用函数中，可以通过返回一个函数来指定如何“清除”副作用。
+
+```javascript
+function Counter() {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => setCount(count + 1), 1000);
+
+    return () => clearInterval(timer);
+  }, [count]);
+
+  return <p>{count}</p>;
+}
+```
+
+注意，与 `componentDidMount`、`componentDidUpdate` 不同的是，在浏览器完成布局与绘制之后，传给 `useEffect` 的函数会延迟调用。
+
+虽然 `useEffect` 会在浏览器绘制后延迟执行，但会保证在任何新的渲染前执行。React 将在组件更新前刷新上一轮渲染的 `effect`。
+
 ## 注意
 
 **只在最顶层使用 Hook。**
