@@ -1,9 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function App() {
-  const [count, setCount] = useState(0);
+class App extends React.Component {
+  state = {
+    count: 0,
+  };
 
-  return <button onClick={() => setCount(count + 1)}>Click {count}</button>;
+  componentDidMount() {
+    document.title = this.state.count;
+  }
+
+  componentDidUpdate() {
+    document.title = this.state.count;
+  }
+
+  render() {
+    const { count } = this.state;
+
+    return (
+      <>
+        <button onClick={() => this.setState({ count: count + 1 })}>
+          Click {count}
+        </button>
+      </>
+    );
+  }
 }
 
 export default App;
