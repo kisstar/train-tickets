@@ -19,9 +19,21 @@ class Middle extends React.Component {
 }
 
 class App extends React.Component {
+  state = {
+    battery: 60,
+  };
+
   render() {
+    const { battery } = this.state;
+
     return (
-      <BatteryContext.Provider value={60}>
+      <BatteryContext.Provider value={battery}>
+        <button
+          type='button'
+          onClick={() => this.setState({ battery: battery - 1 })}
+        >
+          Press
+        </button>
         <Middle />
       </BatteryContext.Provider>
     );
