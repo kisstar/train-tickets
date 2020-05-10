@@ -135,5 +135,9 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "@babel/helper-create-regexp-features-plugin": "^7.8.8",
+    "@babel/plugin-syntax-jsx": "^7.8.3"
   }
 }
