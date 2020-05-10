@@ -1,11 +1,9 @@
 import React from 'react';
 
-class Foo extends React.PureComponent {
-  render() {
-    console.log('Foo render');
-    return <div>{this.props.person.age}</div>;
-  }
-}
+const Foo = React.memo(function Foo(props) {
+  console.log('Foo render');
+  return <div>{props.person.age}</div>;
+});
 
 class App extends React.Component {
   state = {
