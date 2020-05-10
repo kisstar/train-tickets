@@ -16,19 +16,19 @@ class App extends React.Component {
   };
 
   render() {
-    const { person } = this.state;
+    const { count, person } = this.state;
 
     return (
       <>
         <button
           onClick={() => {
             person.age++;
-            this.setState({ person });
+            this.setState({ count: count + 1 });
           }}
         >
           Add
         </button>
-        <Foo person={person} />
+        <Foo person={person} cb={() => {}} />
       </>
     );
   }
