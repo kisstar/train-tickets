@@ -15,6 +15,8 @@ class App extends React.Component {
     },
   };
 
+  callback = () => {};
+
   render() {
     const { count, person } = this.state;
 
@@ -28,7 +30,7 @@ class App extends React.Component {
         >
           Add
         </button>
-        <Foo person={person} cb={() => {}} />
+        <Foo person={person} cb={this.callback} />
       </>
     );
   }
