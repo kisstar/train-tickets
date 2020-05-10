@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 
-const BatteryContext = createContext();
+const BatteryContext = createContext(90);
 const OnlineContext = createContext();
 
 class Leaf extends React.Component {
@@ -37,7 +37,7 @@ class App extends React.Component {
     const { battery, online } = this.state;
 
     return (
-      <BatteryContext.Provider value={battery}>
+      // <BatteryContext.Provider value={battery}>
         <OnlineContext.Provider value={online}>
           <button
             type='button'
@@ -53,7 +53,7 @@ class App extends React.Component {
           </button>
           <Middle />
         </OnlineContext.Provider>
-      </BatteryContext.Provider>
+      // </BatteryContext.Provider>
     );
   }
 }
