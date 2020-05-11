@@ -1,47 +1,16 @@
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  useRef,
-  useEffect,
-} from 'react';
-
-/**
- * useRef 常见的两种使用场景：
- *  1、获取子组件或 DOM 节点的句柄
- *  2、渲染周期之间共享数据的存储
- */
+import React, { useState, useRef, useEffect } from 'react';
 
 class Counter extends React.PureComponent {
-  speak() {
-    const { count } = this.props;
-    console.log(`now counter is ${count}`);
-  }
-
   render() {
-    const { count, onClick } = this.props;
+    const { count } = this.props;
 
-    return <h1 onClick={onClick}>{count}</h1>;
+    return <h1>{count}</h1>;
   }
 }
 
-function App() {
-  const [count, setCount] = useState(0);
-  // eslint-disable-next-line no-unused-vars
-  const [clickCount, setClickCount] = useState(0);
-  const counterRef = useRef();
+function useCount(initState) {
+  const [count, setCount] = useState(initState);
   const it = useRef();
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const double = useMemo(() => count * 2, [count === 3]);
-
-  // useCallback(fn, deps) 相当于 useMemo(() => fn, deps)
-  const onClick = useCallback(() => {
-    console.log('click');
-    setClickCount((clickCount) => clickCount + 1);
-    // console.log(counterRef.current);
-    counterRef.current.speak();
-  }, [counterRef]);
 
   useEffect(() => {
     it.current = setInterval(() => setCount((count) => count + 1), 1000);
@@ -53,12 +22,16 @@ function App() {
     }
   });
 
+  return [count, setCount];
+}
+
+function App() {
+  const [count, setCount] = useCount(0);
+
   return (
     <>
-      <button onClick={() => setCount(count + 1)}>
-        Click {count}, Double {double}
-      </button>
-      <Counter count={double} onClick={onClick} ref={counterRef} />
+      <button onClick={() => setCount(count + 1)}>Click {count}</button>
+      <Counter count={count} />
     </>
   );
 }
