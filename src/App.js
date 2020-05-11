@@ -1,11 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-class Counter extends React.PureComponent {
-  render() {
-    const { count } = this.props;
-
-    return <h1>{count}</h1>;
-  }
+function useCounter(count) {
+  return <h1>{count}</h1>;
 }
 
 function useCount(initState) {
@@ -27,11 +23,12 @@ function useCount(initState) {
 
 function App() {
   const [count, setCount] = useCount(0);
+  const Counter = useCounter(count);
 
   return (
     <>
       <button onClick={() => setCount(count + 1)}>Click {count}</button>
-      <Counter count={count} />
+      {Counter}
     </>
   );
 }
