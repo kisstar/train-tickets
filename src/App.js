@@ -1,7 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 function useCounter(count) {
-  return <h1>{count}</h1>;
+  const size = useSize();
+  return (
+    <h1>
+      {count}, {size.width}*{size.height}
+    </h1>
+  );
 }
 
 function useCount(initState) {
@@ -21,13 +26,40 @@ function useCount(initState) {
   return [count, setCount];
 }
 
+function useSize() {
+  const [size, setSize] = useState({
+    width: window.document.documentElement.clientWidth,
+    height: window.document.documentElement.clientHeight,
+  });
+
+  const onResize = useCallback(() => {
+    setSize({
+      width: window.document.documentElement.clientWidth,
+      height: window.document.documentElement.clientHeight,
+    });
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', onResize, false);
+
+    return () => {
+      window.removeEventListener('resize', onResize, false);
+    };
+  }, [onResize]);
+
+  return size;
+}
+
 function App() {
   const [count, setCount] = useCount(0);
   const Counter = useCounter(count);
+  const size = useSize();
 
   return (
     <>
-      <button onClick={() => setCount(count + 1)}>Click {count}</button>
+      <button onClick={() => setCount(count + 1)}>
+        Click {count}, {size.width}x{size.height}
+      </button>
       {Counter}
     </>
   );
