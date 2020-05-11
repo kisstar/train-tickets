@@ -1,4 +1,10 @@
-import React, { useState, useMemo, useCallback, useRef } from 'react';
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  useRef,
+  useEffect,
+} from 'react';
 
 /**
  * useRef 常见的两种使用场景：
@@ -24,6 +30,7 @@ function App() {
   // eslint-disable-next-line no-unused-vars
   const [clickCount, setClickCount] = useState(0);
   const counterRef = useRef();
+  const it = useRef();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const double = useMemo(() => count * 2, [count === 3]);
@@ -35,6 +42,16 @@ function App() {
     // console.log(counterRef.current);
     counterRef.current.speak();
   }, [counterRef]);
+
+  useEffect(() => {
+    it.current = setInterval(() => setCount((count) => count + 1), 1000);
+  }, []);
+
+  useEffect(() => {
+    if (count >= 10) {
+      clearInterval(it.current);
+    }
+  });
 
   return (
     <>
