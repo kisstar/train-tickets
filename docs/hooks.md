@@ -122,6 +122,51 @@ function Counter() {
 * 在 React 的函数组件中调用 Hook
 * 在自定义 Hook 中调用其他 Hook
 
+## Hooks 的常见问题
+
+* 生命周期函数如何映射到 Hooks？
+
+忘掉你熟悉的生命周期函数，不要试图去做相关的映射。
+
+* 类实例成员变量如何映射到 Hooks？
+
+借助 useRef Hook。
+
+```javascript
+// class
+class App extends React.Component {
+  it = 0;
+}
+
+// func
+function App() {
+  const it = useRef();
+}
+```
+
+* Hooks 中如何获取历史 `props` 和 `state`？
+
+```javascript
+function App() {
+  const [count, setCount] = useState(0);
+  const prevCount = useRef();
+
+  useEffect(() => {
+    prevCount.current = count;
+  });
+
+  return (
+    <h1 onClick={() => setCount(count + 1)}>
+      Now: {count}, Before: {prevCount.current}
+    </h1>
+  );
+}
+```
+
+* 如何强制更新一个 Hooks 组件？
+
+创建一个不参与实际渲染的 `state`，将改变其值的函数用来充当 `forceUpdate` 函数以触发再次渲染。
+
 ## 参考
 
 * [Hook 简介 – React](https://zh-hans.reactjs.org/docs/hooks-intro.html)
