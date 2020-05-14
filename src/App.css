@@ -1,9 +1,27 @@
 html {
-  background: #f5f5f5;
+  font-size: 100px;
+}
+
+html,
+body {
+  overflow: hidden;
+  margin: 0 auto;
+  max-width: 540px;
+  height: 100%;
   color: #333;
-  font-size: 32px;
+  background-color: #fff;
+}
+
+body {
+  font-size: 16px;
 }
 
 ::-webkit-input-placeholder {
   color: #c7ced4;
+}
+
+@media (max-width: 767.98px) {
+  html {
+    font-size: 26.666667vw;
+  }
 }
