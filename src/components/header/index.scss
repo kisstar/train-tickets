@@ -1,0 +1,17 @@
+.header {
+  position: relative;
+  height: 0.44rem;
+  line-height: 0.44rem;
+  background: linear-gradient(90deg, #00c9e2 3%, #00e4f5 92%);
+
+  .header-back {
+    position: absolute;
+  }
+
+  .header-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+  }
+}
