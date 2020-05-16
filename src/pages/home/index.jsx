@@ -1,20 +1,22 @@
-import React, { useCallback } from 'react';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
+import { useShallowEqualSelector, useGoBack } from '../../lib/utils';
 import Header from '../../components/header';
+import Journey from './components/journey';
 import './index.scss';
 
+const selectHomeState = (state) => state.home;
+
 function Home() {
-  const history = useHistory();
-  const onBack = useCallback(() => {
-    history.goBack();
-  }, [history]);
+  const state = useShallowEqualSelector(selectHomeState);
+  const goBack = useGoBack();
 
   return (
     <div className='home'>
-      <Header title='火车票' onBack={onBack} />
+      <Header title='火车票' onBack={goBack} />
       <div className='theme-image'></div>
-      <div className='search-container'></div>
+      <div className='search-container'>
+        <Journey from={state.from} to={state.to} />
+      </div>
       <ul className='btn-list'>
         <li className='btn-item'>
           <span className='icon grab'></span>
@@ -29,12 +31,4 @@ function Home() {
   );
 }
 
-function mapStateToProps() {
-  return {};
-}
-
-function mapDispatchToProps() {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;

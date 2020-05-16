@@ -1,0 +1,17 @@
+.journey {
+  display: flex;
+  justify-content: space-between;
+  width: 3.15rem;
+  height: 0.65rem;
+  margin: 0 auto;
+  align-items: center;
+  font-size: 0.26rem;
+  color: #333;
+  font-weight: 500;
+
+  button {
+    background-color: #fff;
+    border: none;
+    outline: none;
+  }
+}

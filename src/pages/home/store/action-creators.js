@@ -14,6 +14,14 @@ export function setTo(city) {
   };
 }
 
+export function exchangeFromTo() {
+  return (dispatch, getState) => {
+    const { from, to } = getState().home;
+    dispatch(setFrom(to));
+    dispatch(setTo(from));
+  };
+}
+
 export function setIsLoadingCityData(isLoadingCityData) {
   return {
     type: actionTypes.SET_IS_LOADING_CITY_DATA,
@@ -25,16 +33,6 @@ export function setCityData(cityDate) {
   return {
     type: actionTypes.SET_CITY_DATA,
     payload: cityDate,
-  };
-}
-
-export function toggleHighSpeed() {
-  return (dispatch, getState) => {
-    const { highSpeed } = getState();
-    dispatch({
-      type: actionTypes.SET_HIGH_SPEED,
-      payload: !highSpeed,
-    });
   };
 }
 
@@ -87,10 +85,12 @@ export function hideDateSelector() {
   };
 }
 
-export function exchangeFromTo() {
+export function toggleHighSpeed() {
   return (dispatch, getState) => {
-    const { from, to } = getState();
-    dispatch(setFrom(to));
-    dispatch(setTo(from));
+    const { highSpeed } = getState();
+    dispatch({
+      type: actionTypes.SET_HIGHSPEED,
+      payload: !highSpeed,
+    });
   };
 }
