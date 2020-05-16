@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { exchangeFromTo, showCitySelector } from '../../store';
@@ -20,16 +21,23 @@ function Journey({ from, to }) {
   );
 
   return (
-    <div className='journey' onClick={() => doShowCitySelector(true)}>
-      <button type='button'>{from}</button>
+    <div className='journey'>
+      <button type='button' onClick={() => doShowCitySelector(true)}>
+        {from}
+      </button>
       <button type='button' onClick={doExchangeFromTo}>
         <img src={switchIcon} alt='switchIcon' />
       </button>
-      <button type='to' onClick={() => doShowCitySelector(false)}>
+      <button type='button' onClick={() => doShowCitySelector(false)}>
         {to}
       </button>
     </div>
   );
 }
+
+Journey.propTypes = {
+  from: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+};
 
 export default Journey;
