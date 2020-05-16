@@ -1,0 +1,2 @@
+export const SET_CITY_DATA = 'SET_CITY_DATA';
+export const SET_IS_LOADING_CITY_DATA = 'SET_IS_LOADING_CITY_DATA';

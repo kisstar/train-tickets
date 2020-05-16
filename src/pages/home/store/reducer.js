@@ -5,8 +5,6 @@ const initState = {
   to: '上海',
   isCitySelectorVisible: false,
   currentSelectingLeftCity: false,
-  cityData: null,
-  isLoadingCityData: false,
   isDateSelectorVisible: false,
   departDate: Date.now(),
   highSpeed: false,
@@ -19,11 +17,8 @@ function reducer(state = initState, action) {
       return { ...state, from: payload };
     case actionTypes.SET_TO:
       return { ...state, to: payload };
-    case actionTypes.SET_IS_CITY_SELECTOR_VISIBLE:
     case actionTypes.SET_CURRENT_SELECTING_LEFT_CITY:
       return { ...state, currentSelectingLeftCity: payload };
-    case actionTypes.SET_CITY_DATA:
-    case actionTypes.SET_IS_LOADING_CITY_DATA:
     case actionTypes.SET_IS_DATE_SELECTOR_VISIBLE:
     case actionTypes.SET_DEPART_DATE:
     case actionTypes.SET_HIGHSPEED:

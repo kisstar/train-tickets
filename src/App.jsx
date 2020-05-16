@@ -8,6 +8,7 @@ import {
 import { Provider } from 'react-redux';
 import store from './store';
 import Home from './pages/home';
+import City from './pages/city';
 import './App.css';
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Home />
+          </Route>
+          <Route exact path='/city'>
+            <City />
           </Route>
           <Redirect to='/' />
         </Switch>
