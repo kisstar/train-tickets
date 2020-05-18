@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { noop } from '../../lib/utils';
 import './index.scss';
 
-function Header({ onBack, title }) {
+function Header({ type = 'title', onBack, title, onChange = noop }) {
+  const [keyWord, setKeyWord] = useState('');
+  const kw = useMemo(() => keyWord.trim(), [keyWord]);
+
   return (
     <div className='header'>
       <div className='header-back' onClick={onBack}>
@@ -15,14 +20,39 @@ function Header({ onBack, title }) {
           />
         </svg>
       </div>
-      <h1 className='header-title'>{title}</h1>
+      {type === 'title' && <h1 className='header-title'>{title}</h1>}
+      {type === 'search' && (
+        <>
+          <i className='search-icon'>&#xf067;</i>
+          <input
+            value={keyWord}
+            className='header-search'
+            placeholder='城市、车站的中文或拼音'
+            onChange={(e) => {
+              const { value } = e.target;
+              setKeyWord(value);
+              onChange(value);
+            }}
+          />
+          <i
+            className={classnames('search-clean', {
+              hidden: kw.length === 0,
+            })}
+            onClick={() => setKeyWord('')}
+          >
+            &#xf063;
+          </i>
+        </>
+      )}
     </div>
   );
 }
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['title', 'search']),
+  title: PropTypes.string,
   onBack: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
 };
 
 export default Header;

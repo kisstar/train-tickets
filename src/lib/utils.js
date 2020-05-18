@@ -2,6 +2,8 @@ import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, shallowEqual } from 'react-redux';
 
+export function noop() {}
+
 export function useShallowEqualSelector(selector) {
   return useSelector(selector, shallowEqual);
 }

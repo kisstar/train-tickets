@@ -1,6 +1,6 @@
 import React from 'react';
 import { useShallowEqualSelector, useGoBack } from '../../lib/utils';
-import Header from '../../components/header';
+import { Header } from '../../components';
 import Journey from './components/journey';
 import './index.scss';
 
