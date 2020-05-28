@@ -1,0 +1,38 @@
+.city-selector {
+  .title {
+    z-index: 100;
+    position: sticky;
+    top: 0;
+    padding: 0.12rem 0.16rem;
+    font-size: 14px;
+    color: #616161;
+    background-color: #f5f5f5;
+  }
+
+  .cities {
+    list-style: none;
+    padding: 0;
+  }
+
+  .city-item {
+    position: relative;
+    padding-left: 0.48rem;
+    height: 0.37rem;
+    line-height: 0.37rem;
+    font-size: 16px;
+    background: #fff;
+    color: #212121;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0.48rem;
+      bottom: 0;
+      display: block;
+      right: 0;
+      border-bottom: 1px solid #e5e5e5;
+      transform: scale(1, 0.5);
+      z-index: 10;
+    }
+  }
+}

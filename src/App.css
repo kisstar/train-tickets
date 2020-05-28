@@ -1,3 +1,7 @@
+* {
+  scroll-behavior: smooth;
+}
+
 html {
   font-size: 100px;
 }
@@ -16,8 +20,16 @@ body {
   font-size: 16px;
 }
 
+#root {
+  height: 100%;
+}
+
 ::-webkit-input-placeholder {
   color: #c7ced4;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 .hidden {

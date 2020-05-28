@@ -33,7 +33,7 @@ export function showCitySelector(currentSelectingLeftCity) {
 
 export function setSelectedCity(city) {
   return (dispatch, getState) => {
-    const { currentSelectingLeftCity } = getState();
+    const { currentSelectingLeftCity } = getState().home;
 
     if (currentSelectingLeftCity) {
       dispatch(setFrom(city));
