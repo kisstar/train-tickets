@@ -40,12 +40,16 @@ function City() {
   useEffect(getCityData, []);
 
   const cityData = state.cityData || {};
-  const { cityList = [] } = cityData;
+  const { cityList = [], hotCities = [] } = cityData;
 
   return (
     <div className='city'>
       <Header type='search' onBack={goBack} />
-      <CitySelector cityList={cityList} onSelect={onSelect} />
+      <CitySelector
+        cityList={cityList}
+        hotCities={hotCities}
+        onSelect={onSelect}
+      />
     </div>
   );
 }

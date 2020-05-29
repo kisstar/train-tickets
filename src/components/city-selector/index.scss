@@ -1,4 +1,6 @@
 .city-selector {
+  background-color: #f5f5f5;
+
   .title {
     z-index: 100;
     position: sticky;
@@ -11,6 +13,7 @@
 
   .cities {
     list-style: none;
+    margin: 0;
     padding: 0;
   }
 
@@ -33,6 +36,28 @@
       border-bottom: 1px solid #e5e5e5;
       transform: scale(1, 0.5);
       z-index: 10;
+    }
+  }
+
+  .btn-group {
+    margin: 0 0.16rem;
+    width: 3.15rem;
+  }
+
+  .btn-item {
+    display: inline-block;
+    margin-top: 0.12rem;
+    width: 0.97rem;
+    height: 0.37rem;
+    line-height: 0.37rem;
+    font-size: 16px;
+    text-align: center;
+    color: #212121;
+    background: #fff;
+    border-radius: 0.04rem;
+
+    &:nth-of-type(3n + 2) {
+      margin: 0.12rem 0.12rem 0 0.12rem;
     }
   }
 }
