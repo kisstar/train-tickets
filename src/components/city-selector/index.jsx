@@ -11,11 +11,23 @@ function CitySelector({ cityList = [], hotCities = [], onSelect = noop }) {
   const getPos = useCallback(async () => {
     setCurrentPos(await getPosition());
   }, []);
+  const onAlphabetClick = useCallback((e) => {
+    const titleEle = document.querySelector(
+      `[data-title=${e.target.getAttribute('data-letter')}]`
+    );
+    if (titleEle) {
+      titleEle.style.position = 'static'; // 若为 fixed，滑动至屏幕上方的项时不会展开其下的城市列表
+      titleEle.scrollIntoView();
+      titleEle.style = '';
+    }
+  }, []);
 
   return (
     <div className='city-selector'>
       <div className='city-block'>
-        <div className='title'>定位</div>
+        <div className='title' data-title='定位'>
+          定位
+        </div>
         <div className='btn-group'>
           <div className='btn-item' onClick={getPos}>
             {currntPos ? currntPos : '定位'}
@@ -23,7 +35,9 @@ function CitySelector({ cityList = [], hotCities = [], onSelect = noop }) {
         </div>
       </div>
       <div className='city-block'>
-        <div className='title'>热门</div>
+        <div className='title' data-title='热门'>
+          热门
+        </div>
         <div className='btn-group'>
           {hotCities.map((item) => (
             <div
@@ -36,12 +50,14 @@ function CitySelector({ cityList = [], hotCities = [], onSelect = noop }) {
           ))}
         </div>
       </div>
-
+      {/* 城市列表 */}
       {cityList.map((item) => {
         const { citys = [] } = item;
         return (
           <div className='city-block' key={item.title}>
-            <div className='title'>{item.title}</div>
+            <div className='title' data-title={item.title}>
+              {item.title}
+            </div>
             <ul className='cities'>
               {citys.map((city) => (
                 <li
@@ -56,6 +72,30 @@ function CitySelector({ cityList = [], hotCities = [], onSelect = noop }) {
           </div>
         );
       })}
+      {/* 字母表 */}
+      <div className='alphabet-block'>
+        {['定位', '热门'].map((text) => (
+          <button
+            onClick={onAlphabetClick}
+            className='alphabet-item'
+            data-letter={text}
+          >
+            {text}
+          </button>
+        ))}
+        {Array.from({ length: 26 }).map((_item, index) => {
+          const text = String.fromCodePoint(65 + index);
+          return (
+            <button
+              onClick={onAlphabetClick}
+              className='alphabet-item'
+              data-letter={text}
+            >
+              {text}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
