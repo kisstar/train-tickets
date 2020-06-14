@@ -2,21 +2,29 @@
 
 React Hooks 从入门到实战去哪儿移动端 WEB 火车票项目
 
-## yarn start
+## start
 
 Runs the app in the development mode.
 
+```bash
+yarn start
+```
+
+And start the mock service.
+
+```bash
+yarn start:server
+```
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## yarn test
-
-Launches the test runner in the interactive watch mode.
-
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-## yarn build
+## build
 
 Builds the app for production to the `build` folder.
+
+```bash
+yarn build
+```
 
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
