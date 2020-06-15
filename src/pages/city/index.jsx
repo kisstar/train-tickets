@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useGoBack, useShallowEqualSelector } from '../../lib/utils';
 import { setIsLoadingCityData, setCityData } from './store';
 import { setSelectedCity } from '../home/store';
-import { Header, CitySelector } from '../../components';
+import { CitySuggest, CitySelector } from '../../components';
 import './index.scss';
 import { useCallback } from 'react';
 
@@ -44,7 +44,7 @@ function City() {
 
   return (
     <div className='city'>
-      <Header type='search' onBack={goBack} />
+      <CitySuggest onBack={goBack} placeholder='城市、车站的中文或拼音' />
       <CitySelector
         cityList={cityList}
         hotCities={hotCities}

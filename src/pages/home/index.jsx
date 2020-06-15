@@ -12,7 +12,7 @@ function Home() {
 
   return (
     <div className='home'>
-      <Header title='火车票' onBack={goBack} />
+      <Header title='火车票' showBack={true} onBack={goBack} />
       <div className='theme-image'></div>
       <div className='search-container'>
         <Journey from={state.from} to={state.to} />
