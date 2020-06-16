@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { noop } from '../../lib/utils';
+import { noop } from '../../../../lib/utils';
 import './index.scss';
 
 function CitySuggest({

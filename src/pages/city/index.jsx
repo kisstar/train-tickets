@@ -8,7 +8,8 @@ import {
   setSearchKeyword,
 } from './store';
 import { setSelectedCity } from '../home/store';
-import { CitySuggest, CitySelector } from '../../components';
+import CitySuggest from './components/city-suggest';
+import CitySelector from './components/city-selector';
 import './index.scss';
 import { useCallback } from 'react';
 

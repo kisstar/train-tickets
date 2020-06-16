@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { noop, currentPosition, getPosition } from '../../lib/utils';
+import { noop, currentPosition, getPosition } from '../../../../lib/utils';
 import './index.scss';
 import { useState } from 'react';
 import { useCallback } from 'react';
