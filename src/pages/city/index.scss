@@ -1,4 +1,15 @@
 .city {
   height: 100%;
   overflow: auto;
+
+  .suggest-item {
+    height: 0.44rem;
+    line-height: 0.44rem;
+    color: #212121;
+    padding-left: 0.15rem;
+    padding-right: 0.15rem;
+    position: relative;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e5e5;
+  }
 }

@@ -13,3 +13,17 @@ export function setCityData(cityDate) {
     payload: cityDate,
   };
 }
+
+export function setSearchKeyword(kw) {
+  return {
+    type: actionTypes.SET_SEARCH_KEYWORD,
+    payload: kw,
+  };
+}
+
+export function setSearchCityDate(cityDate) {
+  return {
+    type: actionTypes.SET_SEARCH_CITY_DATA,
+    payload: cityDate,
+  };
+}
