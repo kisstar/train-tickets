@@ -76,6 +76,7 @@ function CitySelector({ cityList = [], hotCities = [], onSelect = noop }) {
       <div className='alphabet-block'>
         {['定位', '热门'].map((text) => (
           <button
+            key={text}
             onClick={onAlphabetClick}
             className='alphabet-item'
             data-letter={text}
@@ -87,6 +88,7 @@ function CitySelector({ cityList = [], hotCities = [], onSelect = noop }) {
           const text = String.fromCodePoint(65 + index);
           return (
             <button
+              key={index}
               onClick={onAlphabetClick}
               className='alphabet-item'
               data-letter={text}
