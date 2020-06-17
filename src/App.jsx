@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Home from './pages/home';
 import City from './pages/city';
+import Time from './pages/time';
 import './App.css';
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
           </Route>
           <Route exact path='/city'>
             <City />
+          </Route>
+          <Route exact path='/time'>
+            <Time />
           </Route>
           <Redirect to='/' />
         </Switch>

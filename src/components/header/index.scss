@@ -5,10 +5,14 @@
   line-height: 0.44rem;
   background: linear-gradient(90deg, #00c9e2 3%, #00e4f5 92%);
 
+  .header-back {
+    position: absolute;
+    height: 100%;
+  }
+
   .header-title {
     flex-grow: 1;
     margin: 0;
-    margin-left: -0.42rem;
     font-size: 18px;
     font-weight: 700;
     text-align: center;
