@@ -1,0 +1,22 @@
+.depart-date {
+  position: relative;
+  width: 3.15rem;
+  height: 0.59rem;
+  margin: 0 auto;
+  font-size: 0.2rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #e5e5e5;
+
+  .date {
+    font-weight: 500;
+  }
+
+  .week,
+  .today {
+    font-size: 0.14rem;
+    color: #9e9e9e;
+    margin-left: 0.08rem;
+  }
+}

@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useShallowEqualSelector, useGoBack } from '../../lib/utils';
 import { Header } from '../../components';
 import Journey from './components/journey';
+import DepartDate from './components/depart-date';
 import './index.scss';
 
 const selectHomeState = (state) => state.home;
 
 function Home() {
+  const history = useHistory();
   const state = useShallowEqualSelector(selectHomeState);
   const goBack = useGoBack();
+  const toTime = useCallback(() => history.push('/time'), [history]);
 
   return (
     <div className='home'>
@@ -16,6 +20,7 @@ function Home() {
       <div className='theme-image'></div>
       <div className='search-container'>
         <Journey from={state.from} to={state.to} />
+        <DepartDate onClick={toTime} />
       </div>
       <ul className='btn-list'>
         <li className='btn-item'>
