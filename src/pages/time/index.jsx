@@ -1,11 +1,14 @@
-import React from 'react';
-import { useGoBack } from '../../lib/utils';
+import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { useGoBack, h0 } from '../../lib/utils';
 import { Header } from '../../components';
 import Month from './components/Month';
+import { setDepartDate } from '../home/store';
 import './index.scss';
 
 function Time() {
   const goBack = useGoBack();
+  const dispatch = useDispatch();
   const now = new Date();
   now.setHours(0);
   now.setMinutes(0);
@@ -18,14 +21,28 @@ function Time() {
   now.setMonth(now.getMonth() + 1);
   monthQueue.push(now.getTime());
 
+  const onSelect = useCallback(
+    (time) => {
+      if (time && time >= h0()) {
+        dispatch(setDepartDate(time));
+      }
+      goBack();
+    },
+    [dispatch, goBack]
+  );
+
   return (
     <div className='time'>
       <Header title='火车票' showBack={true} onBack={goBack} />
       {monthQueue.map((timeStamp) => (
-        <Month key={timeStamp} startTime={timeStamp} />
+        <Month key={timeStamp} startTime={timeStamp} onSelect={onSelect} />
       ))}
     </div>
   );
 }
+
+// Time.propTypes = {
+//   onSelect: PropTypes.func,
+// };
 
 export default Time;

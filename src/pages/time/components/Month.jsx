@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Week from './Week';
 import './month.scss';
 
-function Month({ startTime }) {
+function Month({ startTime, onSelect }) {
   const startDay = new Date(startTime);
   const currentDay = new Date(startTime);
   const month = startDay.getMonth(); // 避免在循环中多次取值
@@ -38,13 +38,14 @@ function Month({ startTime }) {
 
   return (
     <div className='month'>
-      <Week title={title} weeeks={weeeks} />
+      <Week onSelect={onSelect} title={title} weeeks={weeeks} />
     </div>
   );
 }
 
 Month.propTypes = {
   startTime: PropTypes.number,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default Month;

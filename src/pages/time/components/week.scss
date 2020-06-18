@@ -4,11 +4,33 @@
   }
 
   thead {
-    background-color: #f7f7f7;
+    th {
+      position: sticky;
+      z-index: 999;
+      top: 0;
+      background-color: #f7f7f7;
+    }
   }
 
-  th {
+  .week-name {
+    th {
+      position: sticky;
+      top: 56px;
+      background-color: #fff;
+    }
+
+    .weekends {
+      color: #00afc7;
+    }
+  }
+
+  th,
+  td {
     text-align: center;
+    font-size: 15px;
+    width: 0.45rem;
+    height: 0.54rem;
+    line-height: 0.54rem;
   }
 
   .weekends {

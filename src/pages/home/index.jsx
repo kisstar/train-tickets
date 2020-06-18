@@ -20,7 +20,7 @@ function Home() {
       <div className='theme-image'></div>
       <div className='search-container'>
         <Journey from={state.from} to={state.to} />
-        <DepartDate onClick={toTime} />
+        <DepartDate onClick={toTime} time={state.departDate} />
       </div>
       <ul className='btn-list'>
         <li className='btn-item'>

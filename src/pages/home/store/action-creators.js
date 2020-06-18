@@ -43,18 +43,11 @@ export function setSelectedCity(city) {
   };
 }
 
-export function showDateSelector() {
+export function setDepartDate(time) {
   return {
-    type: actionTypes.SET_IS_DATE_SELECTOR_VISIBLE,
-    payload: true,
-  };
-}
-
-export function hideDateSelector() {
-  return {
-    type: actionTypes.SET_IS_DATE_SELECTOR_VISIBLE,
-    payload: false,
-  };
+    type: actionTypes.SET_DEPART_DATE,
+    payload: time
+  }
 }
 
 export function toggleHighSpeed() {
