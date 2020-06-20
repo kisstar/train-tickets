@@ -4,15 +4,22 @@ import { useShallowEqualSelector, useGoBack } from '../../lib/utils';
 import { Header } from '../../components';
 import Journey from './components/journey';
 import DepartDate from './components/depart-date';
+import HighSpeedRail from './components/high-speed-rail';
+import { useDispatch } from 'react-redux';
+import { toggleHighSpeed } from './store';
 import './index.scss';
 
 const selectHomeState = (state) => state.home;
 
 function Home() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const state = useShallowEqualSelector(selectHomeState);
   const goBack = useGoBack();
   const toTime = useCallback(() => history.push('/time'), [history]);
+  const onToggleHighSpeed = useCallback(() => dispatch(toggleHighSpeed()), [
+    dispatch,
+  ]);
 
   return (
     <div className='home'>
@@ -21,6 +28,7 @@ function Home() {
       <div className='search-container'>
         <Journey from={state.from} to={state.to} />
         <DepartDate onClick={toTime} time={state.departDate} />
+        <HighSpeedRail checked={state.highSpeed} onToggle={onToggleHighSpeed} />
       </div>
       <ul className='btn-list'>
         <li className='btn-item'>

@@ -21,6 +21,7 @@ function reducer(state = initState, action) {
     case actionTypes.SET_DEPART_DATE:
       return { ...state, departDate: payload }
     case actionTypes.SET_HIGHSPEED:
+      return { ...state, highSpeed: payload }
     default:
       return state;
   }

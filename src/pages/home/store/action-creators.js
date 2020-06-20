@@ -52,7 +52,7 @@ export function setDepartDate(time) {
 
 export function toggleHighSpeed() {
   return (dispatch, getState) => {
-    const { highSpeed } = getState();
+    const { highSpeed } = getState().home;
     dispatch({
       type: actionTypes.SET_HIGHSPEED,
       payload: !highSpeed,

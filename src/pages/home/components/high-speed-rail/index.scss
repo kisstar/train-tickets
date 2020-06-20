@@ -1,0 +1,52 @@
+.high-speed-rail {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #e5e5e5;
+  margin: 0 auto;
+  width: 3.15rem;
+  height: 0.63rem;
+  color: #616161;
+  font-size: 0.14rem;
+
+  input {
+    outline: none;
+  }
+
+  .checkbox {
+    width: 0.2rem;
+    height: 0.2rem;
+    background-color: #ffffff;
+    border: solid 1px #dddddd;
+    border-radius: 0.6rem;
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: inline-block;
+    vertical-align: sub;
+    cursor: default;
+    -webkit-appearance: none;
+  }
+
+  .checkbox:checked {
+    background-color: #00e2f4;
+    border: solid 1px #00adc8;
+    text-align: center;
+    background-clip: padding-box;
+  }
+
+  .checkbox:checked:before {
+    content: '';
+    width: 0.08rem;
+    height: 0.08rem;
+    border: 1px solid #ffffff;
+    border-top: none;
+    border-right: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -0.04rem;
+    margin-top: -0.07rem;
+    transform: rotate(-45deg);
+  }
+}
