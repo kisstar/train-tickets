@@ -31,6 +31,21 @@ function Home() {
     dispatch(showCitySelector(false));
     history.push('/city');
   }, [dispatch, history]);
+  const handleSearch = useCallback(() => {
+    const params = {
+      from: state.from,
+      to: state.to,
+      departDate: state.departDate,
+      highSpeed: state.highSpeed,
+    };
+    const paramStr = Object.entries(params)
+      .reduce(
+        (ret, [key, val]) => ret + `${key}=${encodeURIComponent(val)}&`,
+        ''
+      )
+      .replace(/&$/, '');
+    history.push(`/trainList?${paramStr}`);
+  }, [history, state.from, state.to, state.departDate, state.highSpeed]);
 
   return (
     <div className='home'>
@@ -46,6 +61,9 @@ function Home() {
         />
         <DepartDate onClick={toTime} time={state.departDate} />
         <HighSpeedRail checked={state.highSpeed} onToggle={onToggleHighSpeed} />
+        <button type='button' className='search-button' onClick={handleSearch}>
+          搜 索
+        </button>
       </div>
       <ul className='btn-list'>
         <li className='btn-item'>

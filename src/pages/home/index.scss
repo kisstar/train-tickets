@@ -10,10 +10,25 @@
     width: 3.59rem;
     height: 2.69rem;
     margin: -0.73rem auto 0.32rem;
-    padding: 0.08rem 0 0.16rem;
+    padding: 0.08rem 0 0;
     border-radius: 8px;
     box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.14);
     background: #fff;
+  }
+
+  .search-button {
+    margin: 0.07rem auto 0;
+    background: #ff8300;
+    border-radius: 0.24rem;
+    font-size: 0.18rem;
+    color: #fff;
+    width: 3.27rem;
+    height: 0.48rem;
+    line-height: 0.48rem;
+    text-align: center;
+    display: block;
+    border: none;
+    outline: none;
   }
 
   .btn-list {
