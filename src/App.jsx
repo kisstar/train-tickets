@@ -10,6 +10,7 @@ import store from './store';
 import Home from './pages/home';
 import City from './pages/city';
 import Time from './pages/time';
+import TrainList from './pages/train-list';
 import './App.css';
 
 function App() {
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route exact path='/time'>
             <Time />
+          </Route>
+          <Route exact path='/trainList'>
+            <TrainList />
           </Route>
           <Redirect to='/' />
         </Switch>
