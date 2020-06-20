@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Week from './Week';
-import './month.scss';
+import Week from '../week';
+import './index.scss';
 
 function Month({ startTime, onSelect }) {
   const startDay = new Date(startTime);

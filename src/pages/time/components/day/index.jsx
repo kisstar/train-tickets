@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { h0 } from '../../../lib/utils';
-import './day.scss';
+import { h0 } from '../../../../lib/utils';
+import './index.scss';
 
 function Day({ day, onSelect }) {
   const classes = ['day'];

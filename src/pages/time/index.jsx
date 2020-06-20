@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useGoBack, h0 } from '../../lib/utils';
 import { Header } from '../../components';
-import Month from './components/Month';
+import Month from './components/month';
 import { setDepartDate } from '../home/store';
 import './index.scss';
 

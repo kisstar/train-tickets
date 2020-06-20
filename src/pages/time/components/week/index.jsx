@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Day from './Day';
-import './week.scss';
+import Day from '../day';
+import './index.scss';
 
 function Week({ title, weeeks, onSelect }) {
   return (
