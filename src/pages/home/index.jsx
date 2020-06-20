@@ -6,7 +6,7 @@ import Journey from './components/journey';
 import DepartDate from './components/depart-date';
 import HighSpeedRail from './components/high-speed-rail';
 import { useDispatch } from 'react-redux';
-import { toggleHighSpeed } from './store';
+import { toggleHighSpeed, exchangeFromTo, showCitySelector } from './store';
 import './index.scss';
 
 const selectHomeState = (state) => state.home;
@@ -20,13 +20,30 @@ function Home() {
   const onToggleHighSpeed = useCallback(() => dispatch(toggleHighSpeed()), [
     dispatch,
   ]);
+  const doExchangeFromTo = useCallback(() => {
+    dispatch(exchangeFromTo());
+  }, [dispatch]);
+  const doShowLeftCitySelector = useCallback(() => {
+    dispatch(showCitySelector(true));
+    history.push('/city');
+  }, [dispatch, history]);
+  const doShowRightCitySelector = useCallback(() => {
+    dispatch(showCitySelector(false));
+    history.push('/city');
+  }, [dispatch, history]);
 
   return (
     <div className='home'>
       <Header title='火车票' showBack={true} onBack={goBack} />
       <div className='theme-image'></div>
       <div className='search-container'>
-        <Journey from={state.from} to={state.to} />
+        <Journey
+          from={state.from}
+          to={state.to}
+          onClick={doExchangeFromTo}
+          onLeftClick={doShowLeftCitySelector}
+          onRightClick={doShowRightCitySelector}
+        />
         <DepartDate onClick={toTime} time={state.departDate} />
         <HighSpeedRail checked={state.highSpeed} onToggle={onToggleHighSpeed} />
       </div>
