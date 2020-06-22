@@ -1,3 +1,5 @@
+export const SET_FROM = 'SET_FROM';
+export const SET_TO = 'SET_TO';
 export const SET_DEPART_DATE = 'SET_DEPART_DATE';
 export const SET_HIGHSPEED = 'SET_HIGHSPEED';
 export const SET_TRAIN_LIST = 'SET_TRAIN_LIST';

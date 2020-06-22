@@ -1,6 +1,10 @@
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useShallowEqualSelector, useGoBack } from '../../lib/utils';
+import {
+  useShallowEqualSelector,
+  useGoBack,
+  getParamStr,
+} from '../../lib/utils';
 import { Header } from '../../components';
 import Journey from './components/journey';
 import DepartDate from './components/depart-date';
@@ -38,13 +42,8 @@ function Home() {
       departDate: state.departDate,
       highSpeed: state.highSpeed,
     };
-    const paramStr = Object.entries(params)
-      .reduce(
-        (ret, [key, val]) => ret + `${key}=${encodeURIComponent(val)}&`,
-        ''
-      )
-      .replace(/&$/, '');
-    history.push(`/trainList?${paramStr}`);
+    const paramStr = getParamStr(params);
+    history.push(`/trainList${paramStr}`);
   }, [history, state.from, state.to, state.departDate, state.highSpeed]);
 
   return (

@@ -9,23 +9,27 @@ app.get('/read/cities', (_req, res) => {
 });
 
 app.get('/read/search', (req, res) => {
-  const { keyword } = req.query
-  const result = []
+  const { keyword } = req.query;
+  const result = [];
   if (keyword.length) {
-    require('./mock-data/cityNames.json').forEach(item => {
-      const { name } = item
+    require('./mock-data/cityNames.json').forEach((item) => {
+      const { name } = item;
       if (name.includes(keyword)) {
         result.push({
           key: name,
-          display: name
-        })
+          display: name,
+        });
       }
-    })
+    });
   }
   res.json({
     result,
-    keyword
+    keyword,
   });
+});
+
+app.get('/train', (_req, res) => {
+  res.json(require('./mock-data/query.json'));
 });
 
 server.listen(8080, () =>

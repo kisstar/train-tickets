@@ -6,7 +6,7 @@ export let hasInquiried = false;
 export let permissionGetLocation = false;
 export let currentPosition = '';
 
-export function noop() { }
+export function noop() {}
 
 export function useShallowEqualSelector(selector) {
   return useSelector(selector, shallowEqual);
@@ -84,12 +84,29 @@ export function getPosition() {
 }
 
 export function h0(time = Date.now()) {
-  const target = new Date(time)
+  const target = new Date(time);
 
-  target.setHours(0)
-  target.setMinutes(0)
-  target.setSeconds(0)
-  target.setMilliseconds(0)
+  target.setHours(0);
+  target.setMinutes(0);
+  target.setSeconds(0);
+  target.setMilliseconds(0);
 
-  return target.getTime()
+  return target.getTime();
+}
+
+export function getParamStr(paramInfo) {
+  return Object.entries(paramInfo)
+    .reduce((ret, [key, val]) => ret + `${key}=${encodeURIComponent(val)}&`, '?')
+    .replace(/&$/, '');
+}
+
+export function getParamFromStr(search) {
+  return search
+    .slice(1)
+    .split('&')
+    .reduce((ret, cur) => {
+      const tmpArr = cur.split('=');
+      ret[tmpArr[0]] = decodeURIComponent(tmpArr[1]);
+      return ret;
+    }, {});
 }

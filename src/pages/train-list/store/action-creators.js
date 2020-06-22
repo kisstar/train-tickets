@@ -1,6 +1,20 @@
 import * as actionTypes from './action-types';
 import { ORDER_DEPART, ORDER_DURATION } from './reducer';
 
+export function setFrom(city) {
+  return {
+    type: actionTypes.SET_FROM,
+    payload: city,
+  };
+}
+
+export function setTo(city) {
+  return {
+    type: actionTypes.SET_TO,
+    payload: city,
+  };
+}
+
 export function setDepartDate(departDate) {
   return {
     type: actionTypes.SET_DEPART_DATE,

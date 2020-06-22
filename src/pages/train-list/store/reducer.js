@@ -1,4 +1,6 @@
 import {
+  SET_FROM,
+  SET_TO,
   SET_DEPART_DATE,
   SET_HIGHSPEED,
   SET_TRAIN_LIST,
@@ -25,6 +27,8 @@ export const ORDER_DEPART = 1;
 export const ORDER_DURATION = 2;
 
 const initState = {
+  from: '',
+  to: '',
   departDate: h0(),
   highSpeed: false,
   trainList: [],
@@ -49,6 +53,10 @@ const initState = {
 function reducer(state = initState, action) {
   const { type, payload } = action;
   switch (type) {
+    case SET_FROM:
+      return { ...state, from: payload };
+    case SET_TO:
+      return { ...state, to: payload };
     case SET_DEPART_DATE:
       return { ...state, departDate: payload };
     case SET_HIGHSPEED:
