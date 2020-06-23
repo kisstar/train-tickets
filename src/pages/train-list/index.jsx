@@ -8,6 +8,7 @@ import {
   getParamStr,
   getParamFromStr,
 } from '../../lib/utils';
+import { useNav } from '../../lib/hooks';
 import { Header } from '../../components';
 import Nav from './components/nav';
 import List from './components/list';
@@ -23,6 +24,8 @@ import {
   setTrainTypes,
   setDepartStations,
   setArriveStations,
+  prevDate,
+  nextDate,
 } from './store';
 import './index.scss';
 
@@ -116,12 +119,14 @@ function TrainList() {
     searchParsed,
   ]);
 
+  const navProps = useNav(departDate, dispatch, prevDate, nextDate);
+
   if (!searchParsed) return null;
 
   return (
     <div className='train-list'>
       <Header title={`${state.from} ⇀ ${state.to}`} onBack={goBack} showBack />
-      <Nav />
+      <Nav time={departDate} {...navProps} />
       <List />
       <Bottom />
     </div>
