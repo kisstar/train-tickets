@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { noop } from '../../lib/utils';
 import './index.scss';
 
-function Header({ showBack, onBack = noop, title }) {
+function Header({ showBack, onBack = noop, title, position = 'relative' }) {
   return (
-    <div className='header'>
+    <div className={`header ${position}`}>
       {showBack && (
         <div className='header-back' onClick={onBack}>
           <svg width='42' height='42'>
@@ -27,6 +27,7 @@ Header.propTypes = {
   showBack: PropTypes.bool,
   onBack: PropTypes.func,
   title: PropTypes.string,
+  position: PropTypes.string,
 };
 
 export default Header;

@@ -29,13 +29,13 @@ import {
 } from './store';
 import './index.scss';
 
-const selectHomeState = (state) => state.train;
+const selectTrainState = (state) => state.train;
 
 function TrainList() {
   const dispatch = useDispatch();
   const goBack = useGoBack();
   const { search } = useLocation();
-  const state = useShallowEqualSelector(selectHomeState);
+  const state = useShallowEqualSelector(selectTrainState);
   const {
     from,
     to,
@@ -125,9 +125,14 @@ function TrainList() {
 
   return (
     <div className='train-list'>
-      <Header title={`${state.from} ⇀ ${state.to}`} onBack={goBack} showBack />
+      <Header
+        title={`${state.from} ⇀ ${state.to}`}
+        onBack={goBack}
+        showBack
+        position='fixed'
+      />
       <Nav time={departDate} {...navProps} />
-      <List />
+      <List list={state.trainList} />
       <Bottom />
     </div>
   );
