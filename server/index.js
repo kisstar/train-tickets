@@ -29,7 +29,9 @@ app.get('/read/search', (req, res) => {
 });
 
 app.get('/train', (_req, res) => {
-  res.json(require('./mock-data/query.json'));
+  const response = require('./mock-data/query.json');
+  response.dataMap.directTrainInfo.trains = response.dataMap.directTrainInfo.trains.reverse();
+  res.json(response);
 });
 
 server.listen(8080, () =>

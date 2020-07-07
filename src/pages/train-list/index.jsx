@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   useGoBack,
   useShallowEqualSelector,
@@ -26,6 +27,9 @@ import {
   setArriveStations,
   prevDate,
   nextDate,
+  toggleIsFiltersVisible,
+  toggleOnlyTickets,
+  toggleOrderType,
 } from './store';
 import './index.scss';
 
@@ -39,6 +43,7 @@ function TrainList() {
   const {
     from,
     to,
+    isFiltersVisible,
     departDate,
     highSpeed,
     orderType,
@@ -53,6 +58,18 @@ function TrainList() {
     arriveTimeEnd,
     searchParsed,
   } = state;
+
+  const bottomCbs = useMemo(() => {
+    return bindActionCreators(
+      {
+        toggleHighSpeed,
+        toggleIsFiltersVisible,
+        toggleOnlyTickets,
+        toggleOrderType,
+      },
+      dispatch
+    );
+  }, [dispatch]);
 
   useEffect(() => {
     const query = getParamFromStr(search);
@@ -133,7 +150,13 @@ function TrainList() {
       />
       <Nav time={departDate} {...navProps} />
       <List list={state.trainList} />
-      <Bottom />
+      <Bottom
+        highSpeed={highSpeed}
+        orderType={orderType}
+        onlyTickets={onlyTickets}
+        isFiltersVisible={isFiltersVisible}
+        {...bottomCbs}
+      />
     </div>
   );
 }

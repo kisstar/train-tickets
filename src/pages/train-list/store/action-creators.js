@@ -150,12 +150,12 @@ export function setArriveTimeEnd(arriveTimeEnd) {
   };
 }
 
-export function toggleIsFiltersVisiable() {
+export function toggleIsFiltersVisible() {
   return (dispatch, getState) => {
-    const { isFiltersVisiable } = getState().train;
+    const { isFiltersVisible } = getState().train;
     dispatch({
       type: actionTypes.SET_IS_FILTERS_VISIABLE,
-      payload: !isFiltersVisiable,
+      payload: !isFiltersVisible,
     });
   };
 }

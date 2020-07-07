@@ -46,7 +46,7 @@ const initState = {
   departTimeEnd: 24,
   arriveTimeStart: 0,
   arriveTimeEnd: 24,
-  isFiltersVisiable: false,
+  isFiltersVisible: false,
   searchParsed: false,
 };
 
@@ -92,7 +92,7 @@ function reducer(state = initState, action) {
     case SET_ARRIVE_TIME_END:
       return { ...state, arriveTimeEnd: payload };
     case SET_IS_FILTERS_VISIABLE:
-      return { ...state, isFiltersVisiable: payload };
+      return { ...state, isFiltersVisible: payload };
     case SET_SEARCH_PARSED:
       return { ...state, searchParsed: payload };
     default:
