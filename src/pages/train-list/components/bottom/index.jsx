@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { ORDER_DEPART } from '../../constant';
+import BottomModal from './components/BottomModal';
+import ModalTitle from './components/ModalTitle';
 import './index.scss';
 
 function Bottom({
@@ -13,6 +15,27 @@ function Bottom({
   orderType,
   onlyTickets,
   isFiltersVisible,
+  // 综合筛选
+  ticketTypes,
+  trainTypes,
+  departStations,
+  arriveStations,
+  checkedTicketTypes,
+  checkedTrainTypes,
+  checkedDepartStations,
+  checkedArriveStations,
+  departTimeStart,
+  departTimeEnd,
+  arriveTimeStart,
+  arriveTimeEnd,
+  setCheckedTicketTypes,
+  setCheckedTrainTypes,
+  setCheckedDepartStations,
+  setCheckedArriveStations,
+  setDepartTimeStart,
+  setDepartTimeEnd,
+  setArriveTimeStart,
+  setArriveTimeEnd,
 }) {
   return (
     <div className='bottom'>
@@ -45,6 +68,11 @@ function Bottom({
           综合筛选
         </span>
       </div>
+      {isFiltersVisible && (
+        <BottomModal>
+          <ModalTitle ok={() => {}} cancel={() => {}} />
+        </BottomModal>
+      )}
     </div>
   );
 }
@@ -58,6 +86,27 @@ Bottom.propTypes = {
   orderType: PropTypes.number.isRequired,
   onlyTickets: PropTypes.bool.isRequired,
   isFiltersVisible: PropTypes.bool.isRequired,
+  // 综合筛选
+  ticketTypes: PropTypes.array.isRequired,
+  trainTypes: PropTypes.array.isRequired,
+  departStations: PropTypes.array.isRequired,
+  arriveStations: PropTypes.array.isRequired,
+  checkedTicketTypes: PropTypes.object.isRequired,
+  checkedTrainTypes: PropTypes.object.isRequired,
+  checkedDepartStations: PropTypes.object.isRequired,
+  checkedArriveStations: PropTypes.object.isRequired,
+  departTimeStart: PropTypes.number.isRequired,
+  departTimeEnd: PropTypes.number.isRequired,
+  arriveTimeStart: PropTypes.number.isRequired,
+  arriveTimeEnd: PropTypes.number.isRequired,
+  setCheckedTicketTypes: PropTypes.func.isRequired,
+  setCheckedTrainTypes: PropTypes.func.isRequired,
+  setCheckedDepartStations: PropTypes.func.isRequired,
+  setCheckedArriveStations: PropTypes.func.isRequired,
+  setDepartTimeStart: PropTypes.func.isRequired,
+  setDepartTimeEnd: PropTypes.func.isRequired,
+  setArriveTimeStart: PropTypes.func.isRequired,
+  setArriveTimeEnd: PropTypes.func.isRequired,
 };
 
 export default Bottom;

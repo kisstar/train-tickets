@@ -17,19 +17,29 @@ import Bottom from './components/bottom';
 import {
   setFrom,
   setTo,
+  prevDate,
   setDepartDate,
-  toggleHighSpeed,
-  setSearchParsed,
+  nextDate,
+  setSearchParsed, // 在 URL 参数解析完毕后发起请求
   setTrainList,
   setTicketTypes,
   setTrainTypes,
   setDepartStations,
   setArriveStations,
-  prevDate,
-  nextDate,
-  toggleIsFiltersVisible,
-  toggleOnlyTickets,
+  // 底部按钮栏
   toggleOrderType,
+  toggleHighSpeed,
+  toggleOnlyTickets,
+  toggleIsFiltersVisible,
+  // 综合筛选
+  setCheckedTicketTypes,
+  setCheckedTrainTypes,
+  setCheckedDepartStations,
+  setCheckedArriveStations,
+  setDepartTimeStart,
+  setDepartTimeEnd,
+  setArriveTimeStart,
+  setArriveTimeEnd,
 } from './store';
 import './index.scss';
 
@@ -48,7 +58,7 @@ function TrainList() {
     highSpeed,
     orderType,
     onlyTickets,
-    checkedTicketType,
+    checkedTicketTypes,
     checkedTrainTypes,
     checkedDepartStations,
     checkedArriveStations,
@@ -57,6 +67,10 @@ function TrainList() {
     arriveTimeStart,
     arriveTimeEnd,
     searchParsed,
+    ticketTypes,
+    trainTypes,
+    departStations,
+    arriveStations,
   } = state;
 
   const bottomCbs = useMemo(() => {
@@ -66,6 +80,15 @@ function TrainList() {
         toggleIsFiltersVisible,
         toggleOnlyTickets,
         toggleOrderType,
+        setCheckedTicketTypes,
+        // 综合筛选
+        setCheckedTrainTypes,
+        setCheckedDepartStations,
+        setCheckedArriveStations,
+        setDepartTimeStart,
+        setDepartTimeEnd,
+        setArriveTimeStart,
+        setArriveTimeEnd,
       },
       dispatch
     );
@@ -93,7 +116,7 @@ function TrainList() {
         filterTrainType: 5, // 车次类型： 高铁-> 5，特快 -> 3 ...
         onlyTickets: onlyTickets ? 1 : '',
         date: new Date(departDate).toLocaleDateString().replace(/\//g, '-'),
-        filterTicketType: Object.keys(checkedTicketType).join(), // 坐席类型
+        filterTicketType: Object.keys(checkedTicketTypes).join(), // 坐席类型
         startStation: Object.keys(checkedDepartStations).join(),
         endStation: Object.keys(checkedArriveStations).join(),
         filterNewDepTimeRange: `${departTimeStart} - ${departTimeEnd}`,
@@ -125,7 +148,7 @@ function TrainList() {
     highSpeed,
     orderType,
     onlyTickets,
-    checkedTicketType,
+    checkedTicketTypes,
     checkedTrainTypes,
     checkedDepartStations,
     checkedArriveStations,
@@ -155,6 +178,18 @@ function TrainList() {
         orderType={orderType}
         onlyTickets={onlyTickets}
         isFiltersVisible={isFiltersVisible}
+        ticketTypes={ticketTypes}
+        trainTypes={trainTypes}
+        departStations={departStations}
+        arriveStations={arriveStations}
+        checkedTicketTypes={checkedTicketTypes}
+        checkedTrainTypes={checkedTrainTypes}
+        checkedDepartStations={checkedDepartStations}
+        checkedArriveStations={checkedArriveStations}
+        departTimeStart={departTimeStart}
+        departTimeEnd={departTimeEnd}
+        arriveTimeStart={arriveTimeStart}
+        arriveTimeEnd={arriveTimeEnd}
         {...bottomCbs}
       />
     </div>

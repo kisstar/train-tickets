@@ -23,31 +23,31 @@ import {
 } from './action-types';
 import { h0 } from '../../../lib/utils';
 
-export const ORDER_DEPART = 1;
-export const ORDER_DURATION = 2;
+export const ORDER_DEPART = 1; // 早→晚
+export const ORDER_DURATION = 2; // 短→长
 
 const initState = {
   from: '',
   to: '',
   departDate: h0(),
-  highSpeed: false,
-  trainList: [],
-  orderType: ORDER_DEPART,
-  onlyTickets: false,
-  ticketTypes: [],
-  checkedTicketType: {},
-  trainTypes: [],
+  highSpeed: false, // 只看高铁动车
+  trainList: [], // 车次列表
+  orderType: ORDER_DEPART, // 出发方式
+  onlyTickets: false, // 只看有票
+  ticketTypes: [], // 坐席类型
+  checkedTicketTypes: {},
+  trainTypes: [], // 车次类型
   checkedTrainTypes: {},
-  departStations: [],
+  departStations: [], // 出发车站
   checkedDepartStations: {},
-  arriveStations: [],
-  checkedArriveStations: [],
+  arriveStations: [], // 到达车站
+  checkedArriveStations: {},
   departTimeStart: 0,
   departTimeEnd: 24,
   arriveTimeStart: 0,
   arriveTimeEnd: 24,
-  isFiltersVisible: false,
-  searchParsed: false,
+  isFiltersVisible: false, // 是否显示综合筛选
+  searchParsed: false, // URL 参数是否解析完成
 };
 
 function reducer(state = initState, action) {
@@ -70,7 +70,7 @@ function reducer(state = initState, action) {
     case SET_TICKET_TYPES:
       return { ...state, ticketTypes: payload };
     case SET_CHECKED_TICKET_TYPE:
-      return { ...state, checkedTicketType: payload };
+      return { ...state, checkedTicketTypes: payload };
     case SET_TRAIN_TYPES:
       return { ...state, trainTypes: payload };
     case SET_CHECKED_TRAIN_TYPES:
