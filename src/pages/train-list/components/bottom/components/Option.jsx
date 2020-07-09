@@ -1,9 +1,24 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Filter from './Filter';
 
 const Option = memo(function Option(props) {
-  const { title, options, checkedMap } = props;
+  const { title, options, checkedMap, update } = props;
+
+  const toggle = useCallback(
+    (value) => {
+      const newCheckMap = { ...checkedMap };
+
+      if (value in checkedMap) {
+        Reflect.deleteProperty(newCheckMap, value);
+      } else {
+        newCheckMap[value] = true;
+      }
+
+      update(newCheckMap);
+    },
+    [checkedMap, update]
+  );
 
   return (
     <div className='option'>
@@ -15,6 +30,7 @@ const Option = memo(function Option(props) {
               key={option.value}
               {...option}
               checked={option.value in checkedMap}
+              toggle={toggle}
             />
           );
         })}
@@ -27,6 +43,7 @@ Option.propTypes = {
   title: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   checkedMap: PropTypes.object.isRequired,
+  update: PropTypes.func.isRequired,
 };
 
 export default Option;

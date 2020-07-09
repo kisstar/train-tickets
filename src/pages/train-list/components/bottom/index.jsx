@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { ORDER_DEPART } from '../../constant';
 import BottomModal from './components/BottomModal';
 import ModalTitle from './components/ModalTitle';
+import Option from './components/Option';
 import './index.scss';
 
 function Bottom({
@@ -24,19 +25,65 @@ function Bottom({
   checkedTrainTypes,
   checkedDepartStations,
   checkedArriveStations,
-  departTimeStart,
-  departTimeEnd,
-  arriveTimeStart,
-  arriveTimeEnd,
   setCheckedTicketTypes,
   setCheckedTrainTypes,
   setCheckedDepartStations,
   setCheckedArriveStations,
+  departTimeStart,
+  departTimeEnd,
+  arriveTimeStart,
+  arriveTimeEnd,
   setDepartTimeStart,
   setDepartTimeEnd,
   setArriveTimeStart,
   setArriveTimeEnd,
 }) {
+  const [
+    localCheckedTicketTypes,
+    setLocalCheckedTicketTypes,
+  ] = useState(() => ({ ...checkedTicketTypes }));
+
+  const [localCheckedTrainTypes, setLocalCheckedTrainTypes] = useState(() => ({
+    ...checkedTrainTypes,
+  }));
+
+  const [
+    localCheckedDepartStations,
+    setLocalCheckedDepartStations,
+  ] = useState(() => ({ ...checkedDepartStations }));
+
+  const [
+    localCheckedArriveStations,
+    setLocalCheckedArriveStations,
+  ] = useState(() => ({ ...checkedArriveStations }));
+
+  const optionGroup = [
+    {
+      title: '坐席类型',
+      options: ticketTypes,
+      checkedMap: localCheckedTicketTypes,
+      update: setLocalCheckedTicketTypes,
+    },
+    {
+      title: '车次类型',
+      options: trainTypes,
+      checkedMap: localCheckedTrainTypes,
+      update: setLocalCheckedTrainTypes,
+    },
+    {
+      title: '出发车站',
+      options: departStations,
+      checkedMap: localCheckedDepartStations,
+      update: setLocalCheckedDepartStations,
+    },
+    {
+      title: '到达车站',
+      options: arriveStations,
+      checkedMap: localCheckedArriveStations,
+      update: setLocalCheckedArriveStations,
+    },
+  ];
+
   return (
     <div className='bottom'>
       <div className='bottom-filters'>
@@ -71,6 +118,9 @@ function Bottom({
       {isFiltersVisible && (
         <BottomModal>
           <ModalTitle ok={() => {}} cancel={() => {}} />
+          {optionGroup.map((group) => (
+            <Option {...group} key={group.title} />
+          ))}
         </BottomModal>
       )}
     </div>
