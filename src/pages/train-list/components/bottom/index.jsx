@@ -5,6 +5,7 @@ import { ORDER_DEPART } from '../../constant';
 import BottomModal from './components/BottomModal';
 import ModalTitle from './components/ModalTitle';
 import Option from './components/Option';
+import Slider from './components/slider';
 import './index.scss';
 
 function Bottom({
@@ -56,6 +57,19 @@ function Bottom({
     localCheckedArriveStations,
     setLocalCheckedArriveStations,
   ] = useState(() => ({ ...checkedArriveStations }));
+
+  const [localDepartTimeStart, setLocalDepartTimeStart] = useState(
+    () => departTimeStart
+  );
+  const [localDepartTimeEnd, setLocalDepartTimeEnd] = useState(
+    () => departTimeEnd
+  );
+  const [localArriveTimeStart, setLocalArriveTimeStart] = useState(
+    () => arriveTimeStart
+  );
+  const [localArriveTimeEnd, setLocalArriveTimeEnd] = useState(
+    () => arriveTimeEnd
+  );
 
   const optionGroup = [
     {
@@ -121,6 +135,20 @@ function Bottom({
           {optionGroup.map((group) => (
             <Option {...group} key={group.title} />
           ))}
+          <Slider
+            title='出发时间'
+            currentStartHours={localDepartTimeStart}
+            currentEndHours={localDepartTimeEnd}
+            onStartChanged={setLocalDepartTimeStart}
+            onEndChanged={setLocalDepartTimeEnd}
+          />
+          <Slider
+            title='到达时间'
+            currentStartHours={localArriveTimeStart}
+            currentEndHours={localArriveTimeEnd}
+            onStartChanged={setLocalArriveTimeStart}
+            onEndChanged={setLocalArriveTimeEnd}
+          />
         </BottomModal>
       )}
     </div>
