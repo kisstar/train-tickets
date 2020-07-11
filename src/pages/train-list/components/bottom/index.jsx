@@ -98,6 +98,34 @@ function Bottom({
     },
   ];
 
+  // 只在按下确定按钮时才更新上级 store 中的状态
+  const sure = () => {
+    setCheckedTicketTypes(localCheckedTicketTypes);
+    setCheckedTrainTypes(localCheckedTrainTypes);
+    setCheckedDepartStations(localCheckedDepartStations);
+    setCheckedArriveStations(localCheckedArriveStations);
+    setDepartTimeStart(localDepartTimeStart);
+    setDepartTimeEnd(localDepartTimeEnd);
+    setArriveTimeStart(localArriveTimeStart);
+    setArriveTimeEnd(localArriveTimeEnd);
+    toggleIsFiltersVisible();
+  };
+
+  const reset = () => {
+    // if (isResetDisabled) {
+    //   return;
+    // }
+
+    setLocalCheckedTicketTypes({});
+    setLocalCheckedTrainTypes({});
+    setLocalCheckedDepartStations({});
+    setLocalCheckedArriveStations({});
+    setLocalDepartTimeStart(0);
+    setLocalDepartTimeEnd(24);
+    setLocalArriveTimeStart(0);
+    setLocalArriveTimeEnd(24);
+  };
+
   return (
     <div className='bottom'>
       <div className='bottom-filters'>
@@ -131,7 +159,7 @@ function Bottom({
       </div>
       {isFiltersVisible && (
         <BottomModal>
-          <ModalTitle ok={() => {}} cancel={() => {}} />
+          <ModalTitle ok={sure} cancel={reset} />
           {optionGroup.map((group) => (
             <Option {...group} key={group.title} />
           ))}

@@ -26,7 +26,10 @@ const Slider = memo(function Slider(props) {
   const lastEndX = useRef(); // 右侧滑块上一次的横坐标
 
   const range = useRef();
-  const rangeWidth = useRef(); // 记录滑动区域的宽度，当窗口变化时将重新计算
+  const rangeWidth = useRef(); // 记录滑动区域的宽度
+
+  const prevCurrentStartHours = useRef(currentStartHours); // 记录上一次传入的值
+  const prevCurrentEndHours = useRef(currentEndHours);
 
   const winSize = useWinSize();
 
@@ -70,12 +73,6 @@ const Slider = memo(function Slider(props) {
     return endHours.toString().padStart(2, '0') + ':00';
   }, [endHours]);
 
-  useEffect(() => {
-    rangeWidth.current = parseFloat(
-      window.getComputedStyle(range.current).width
-    );
-  }, [winSize]);
-
   const onStartTouchBegin = useCallback(function onStartTouchBegin(e) {
     const touch = e.targetTouches[0];
     lastStartX.current = touch.pageX;
@@ -99,6 +96,24 @@ const Slider = memo(function Slider(props) {
     lastEndX.current = touch.pageX;
     setEnd((end) => end + (distance / rangeWidth.current) * 100);
   }, []);
+
+  // 如果传入的值发生改变，则利用新的值更新本地的状态
+  if (prevCurrentStartHours.current !== currentStartHours) {
+    setStart((currentStartHours / 24) * 100);
+    prevCurrentStartHours.current = currentStartHours;
+  }
+
+  if (prevCurrentEndHours.current !== currentEndHours) {
+    setEnd((currentEndHours / 24) * 100);
+    prevCurrentEndHours.current = currentEndHours;
+  }
+
+  // 当窗口变化时将重新计算滑动区域的宽度
+  useEffect(() => {
+    rangeWidth.current = parseFloat(
+      window.getComputedStyle(range.current).width
+    );
+  }, [winSize]);
 
   // 为滑块绑定事件
   useEffect(() => {

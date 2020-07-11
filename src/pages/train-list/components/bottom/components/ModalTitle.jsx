@@ -1,11 +1,15 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-function ModalTitle(props) {
+function ModalTitle({ ok, cancel }) {
   return (
     <div className='title'>
-      <span className='reset'>重置</span>
-      <span className='ok'>确定</span>
+      <span className='reset' onClick={cancel}>
+        重置
+      </span>
+      <span className='ok' onClick={ok}>
+        确定
+      </span>
     </div>
   );
 }
