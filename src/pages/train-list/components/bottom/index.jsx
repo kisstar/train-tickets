@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { ORDER_DEPART } from '../../constant';
@@ -7,6 +7,26 @@ import ModalTitle from './components/ModalTitle';
 import Option from './components/Option';
 import Slider from './components/slider';
 import './index.scss';
+
+function checkedReducer(state, action) {
+  const { type, payload } = action;
+
+  switch (type) {
+    case 'toggle':
+      const newState = { ...state };
+      if (payload in newState) {
+        delete newState[payload];
+      } else {
+        newState[payload] = true;
+      }
+      return newState;
+    case 'reset':
+      return {};
+    default:
+  }
+
+  return state;
+}
 
 function Bottom({
   toggleOrderType,
@@ -39,24 +59,51 @@ function Bottom({
   setArriveTimeStart,
   setArriveTimeEnd,
 }) {
-  const [
-    localCheckedTicketTypes,
-    setLocalCheckedTicketTypes,
-  ] = useState(() => ({ ...checkedTicketTypes }));
+  const [localCheckedTicketTypes, localCheckedTicketTypesDispatch] = useReducer(
+    checkedReducer,
+    checkedTicketTypes,
+    (checkedTicketTypes) => {
+      return {
+        ...checkedTicketTypes,
+      };
+    }
+  );
 
-  const [localCheckedTrainTypes, setLocalCheckedTrainTypes] = useState(() => ({
-    ...checkedTrainTypes,
-  }));
+  const [localCheckedTrainTypes, localCheckedTrainTypesDispatch] = useReducer(
+    checkedReducer,
+    checkedTrainTypes,
+    (checkedTrainTypes) => {
+      return {
+        ...checkedTrainTypes,
+      };
+    }
+  );
 
   const [
     localCheckedDepartStations,
-    setLocalCheckedDepartStations,
-  ] = useState(() => ({ ...checkedDepartStations }));
+    localCheckedDepartStationsDispatch,
+  ] = useReducer(
+    checkedReducer,
+    checkedDepartStations,
+    (checkedDepartStations) => {
+      return {
+        ...checkedDepartStations,
+      };
+    }
+  );
 
   const [
     localCheckedArriveStations,
-    setLocalCheckedArriveStations,
-  ] = useState(() => ({ ...checkedArriveStations }));
+    localCheckedArriveStationsDispatch,
+  ] = useReducer(
+    checkedReducer,
+    checkedArriveStations,
+    (checkedArriveStations) => {
+      return {
+        ...checkedArriveStations,
+      };
+    }
+  );
 
   const [localDepartTimeStart, setLocalDepartTimeStart] = useState(
     () => departTimeStart
@@ -76,27 +123,71 @@ function Bottom({
       title: '坐席类型',
       options: ticketTypes,
       checkedMap: localCheckedTicketTypes,
-      update: setLocalCheckedTicketTypes,
+      dispatch: localCheckedTicketTypesDispatch,
     },
     {
       title: '车次类型',
       options: trainTypes,
       checkedMap: localCheckedTrainTypes,
-      update: setLocalCheckedTrainTypes,
+      dispatch: localCheckedTrainTypesDispatch,
     },
     {
       title: '出发车站',
       options: departStations,
       checkedMap: localCheckedDepartStations,
-      update: setLocalCheckedDepartStations,
+      dispatch: localCheckedDepartStationsDispatch,
     },
     {
       title: '到达车站',
       options: arriveStations,
       checkedMap: localCheckedArriveStations,
-      update: setLocalCheckedArriveStations,
+      dispatch: localCheckedArriveStationsDispatch,
     },
   ];
+
+  const noChecked = useMemo(() => {
+    return (
+      Object.keys(checkedTicketTypes).length === 0 &&
+      Object.keys(checkedTrainTypes).length === 0 &&
+      Object.keys(checkedDepartStations).length === 0 &&
+      Object.keys(checkedArriveStations).length === 0 &&
+      departTimeStart === 0 &&
+      departTimeEnd === 24 &&
+      arriveTimeStart === 0 &&
+      arriveTimeEnd === 24
+    );
+  }, [
+    checkedTicketTypes,
+    checkedTrainTypes,
+    checkedDepartStations,
+    checkedArriveStations,
+    departTimeStart,
+    departTimeEnd,
+    arriveTimeStart,
+    arriveTimeEnd,
+  ]);
+
+  const isResetDisabled = useMemo(() => {
+    return (
+      Object.keys(localCheckedTicketTypes).length === 0 &&
+      Object.keys(localCheckedTrainTypes).length === 0 &&
+      Object.keys(localCheckedDepartStations).length === 0 &&
+      Object.keys(localCheckedArriveStations).length === 0 &&
+      localDepartTimeStart === 0 &&
+      localDepartTimeEnd === 24 &&
+      localArriveTimeStart === 0 &&
+      localArriveTimeEnd === 24
+    );
+  }, [
+    localCheckedTicketTypes,
+    localCheckedTrainTypes,
+    localCheckedDepartStations,
+    localCheckedArriveStations,
+    localDepartTimeStart,
+    localDepartTimeEnd,
+    localArriveTimeStart,
+    localArriveTimeEnd,
+  ]);
 
   // 只在按下确定按钮时才更新上级 store 中的状态
   const sure = () => {
@@ -112,14 +203,14 @@ function Bottom({
   };
 
   const reset = () => {
-    // if (isResetDisabled) {
-    //   return;
-    // }
+    if (isResetDisabled) {
+      return;
+    }
 
-    setLocalCheckedTicketTypes({});
-    setLocalCheckedTrainTypes({});
-    setLocalCheckedDepartStations({});
-    setLocalCheckedArriveStations({});
+    localCheckedTicketTypesDispatch({ type: 'reset' });
+    localCheckedTrainTypesDispatch({ type: 'reset' });
+    localCheckedDepartStationsDispatch({ type: 'reset' });
+    localCheckedArriveStationsDispatch({ type: 'reset' });
     setLocalDepartTimeStart(0);
     setLocalDepartTimeEnd(24);
     setLocalArriveTimeStart(0);
@@ -149,17 +240,21 @@ function Bottom({
         </span>
         <span
           className={classnames('item', {
-            'item-on': isFiltersVisible,
+            'item-on': isFiltersVisible || !noChecked,
           })}
           onClick={toggleIsFiltersVisible}
         >
-          <i className='icon'>{'\uf0f7'}</i>
+          <i className='icon'>{noChecked ? '\uf0f7' : '\uf446'}</i>
           综合筛选
         </span>
       </div>
       {isFiltersVisible && (
         <BottomModal>
-          <ModalTitle ok={sure} cancel={reset} />
+          <ModalTitle
+            ok={sure}
+            cancel={reset}
+            isResetDisabled={isResetDisabled}
+          />
           {optionGroup.map((group) => (
             <Option {...group} key={group.title} />
           ))}

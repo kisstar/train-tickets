@@ -60,7 +60,18 @@ function reducer(state = initState, action) {
     case SET_DEPART_DATE:
       return { ...state, departDate: payload };
     case SET_HIGHSPEED:
-      return { ...state, highSpeed: payload };
+      const highSpeedToState = { ...state, highSpeed: payload };
+      if (payload) {
+        highSpeedToState.checkedTrainTypes = {
+          // 在 trainTypes 中这两项为高铁
+          '1': true,
+          '5': true,
+        };
+      } else {
+        Reflect.deleteProperty(highSpeedToState.checkedTrainTypes, '1');
+        Reflect.deleteProperty(highSpeedToState.checkedTrainTypes, '5');
+      }
+      return highSpeedToState;
     case SET_TRAIN_LIST:
       return { ...state, trainList: payload };
     case SET_ORDER_TYPE:
@@ -74,7 +85,13 @@ function reducer(state = initState, action) {
     case SET_TRAIN_TYPES:
       return { ...state, trainTypes: payload };
     case SET_CHECKED_TRAIN_TYPES:
-      return { ...state, checkedTrainTypes: payload };
+      const checkedTrainTypesToState = { ...state, checkedTrainTypes: payload };
+      if (2 === Object.keys(payload).length && payload['1'] && payload['5']) {
+        checkedTrainTypesToState.highSpeed = true;
+      } else {
+        checkedTrainTypesToState.highSpeed = false;
+      }
+      return checkedTrainTypesToState;
     case SET_DEPART_STATIONS:
       return { ...state, departStations: payload };
     case SET_CHECKED_DEPART_STATIONS:

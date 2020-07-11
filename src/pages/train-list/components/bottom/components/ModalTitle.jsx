@@ -1,10 +1,16 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
-function ModalTitle({ ok, cancel }) {
+function ModalTitle({ ok, cancel, isResetDisabled }) {
   return (
     <div className='title'>
-      <span className='reset' onClick={cancel}>
+      <span
+        className={classnames('reset', {
+          disabled: isResetDisabled,
+        })}
+        onClick={cancel}
+      >
         重置
       </span>
       <span className='ok' onClick={ok}>
@@ -17,6 +23,7 @@ function ModalTitle({ ok, cancel }) {
 ModalTitle.propTypes = {
   ok: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired,
+  isResetDisabled: PropTypes.bool.isRequired,
 };
 
 export default memo(ModalTitle);
