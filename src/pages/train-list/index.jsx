@@ -73,6 +73,10 @@ function TrainList() {
     arriveStations,
   } = state;
 
+  useEffect(() => {
+    document.title = `${from} ⇀ ${to}`;
+  });
+
   const bottomCbs = useMemo(() => {
     return bindActionCreators(
       {
