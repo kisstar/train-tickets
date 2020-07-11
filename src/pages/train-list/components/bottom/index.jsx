@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { ORDER_DEPART } from '../../constant';
 import BottomModal from './components/BottomModal';
 import ModalTitle from './components/ModalTitle';
-import Option from './components/Option';
+import Option from './components/option';
 import Slider from './components/slider';
 import './index.scss';
 
