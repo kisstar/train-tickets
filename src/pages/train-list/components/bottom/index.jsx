@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { ORDER_DEPART } from '../../constant';
@@ -36,45 +36,52 @@ function Bottom({
   setArriveTimeStart,
   setArriveTimeEnd,
 }) {
-  const noChecked = useMemo(() => {
-    return (
-      Object.keys(checkedTicketTypes).length === 0 &&
-      Object.keys(checkedTrainTypes).length === 0 &&
-      Object.keys(checkedDepartStations).length === 0 &&
-      Object.keys(checkedArriveStations).length === 0 &&
-      departTimeStart === 0 &&
-      departTimeEnd === 24 &&
-      arriveTimeStart === 0 &&
-      arriveTimeEnd === 24
-    );
-  }, [
-    checkedTicketTypes,
-    checkedTrainTypes,
-    checkedDepartStations,
-    checkedArriveStations,
-    departTimeStart,
-    departTimeEnd,
-    arriveTimeStart,
-    arriveTimeEnd,
-  ]);
+  const noChecked =
+    Object.keys(checkedTicketTypes).length === 0 &&
+    Object.keys(checkedTrainTypes).length === 0 &&
+    Object.keys(checkedDepartStations).length === 0 &&
+    Object.keys(checkedArriveStations).length === 0 &&
+    departTimeStart === 0 &&
+    departTimeEnd === 24 &&
+    arriveTimeStart === 0 &&
+    arriveTimeEnd === 24;
+
+  const _toggleOrderType = useCallback(() => {
+    if (isFiltersVisible) {
+      toggleIsFiltersVisible();
+    }
+    toggleOrderType();
+  }, [isFiltersVisible, toggleIsFiltersVisible, toggleOrderType]);
+  const _toggleHighSpeed = useCallback(() => {
+    if (isFiltersVisible) {
+      toggleIsFiltersVisible();
+    }
+    toggleHighSpeed();
+  }, [isFiltersVisible, toggleIsFiltersVisible, toggleHighSpeed]);
+  const _toggleOnlyTickets = useCallback(() => {
+    if (isFiltersVisible) {
+      toggleIsFiltersVisible();
+    }
+    toggleOnlyTickets();
+  }, [isFiltersVisible, toggleIsFiltersVisible, toggleOnlyTickets]);
 
   return (
     <div className='bottom'>
       <div className='bottom-filters'>
-        <span className='item' onClick={toggleOrderType}>
+        <span className='item' onClick={_toggleOrderType}>
           <i className='icon'>&#xf065;</i>
           {orderType === ORDER_DEPART ? '出发 早→晚' : '耗时 短→长'}
         </span>
         <span
           className={classnames('item', { 'item-on': highSpeed })}
-          onClick={toggleHighSpeed}
+          onClick={_toggleHighSpeed}
         >
           <i className='icon'>{highSpeed ? '\uf43f' : '\uf43e'}</i>
           只看高铁动车
         </span>
         <span
           className={classnames('item', { 'item-on': onlyTickets })}
-          onClick={toggleOnlyTickets}
+          onClick={_toggleOnlyTickets}
         >
           <i className='icon'>{onlyTickets ? '\uf43d' : '\uf43c'}</i>
           只看有票
