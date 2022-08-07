@@ -8,9 +8,6 @@
 
 如果赋予 React 组件相同的 `props` 和 `state`，`render()` 函数会渲染相同的内容，那么在某些情况下使用 `React.PureComponent` 可提高性能。
 
-```javascript
-```
-
 注意：`React.PureComponent` 中的 `shouldComponentUpdate()` 仅作对象的浅层比较。
 
 请仅在你的 `props` 和 `state` 较为简单时，才使用 `React.PureComponent`，或者在深层数据结构发生变化时调用 [forceUpdate()][forceupdate] 来确保组件被正确地更新。
